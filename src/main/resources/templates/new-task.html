@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(pageTitle='Create New Task')"/>
+<body>
+<div th:replace="fragments :: header"></div>
+<div class="container-fluid">
+    <div class="row px-5">
+        <div class="col">
+            <div class="row justify-content-center">
+                <h1>Create New Task</h1>
+            </div>
+            <div class="row justify-content-center mb-4">
+                <div class="col">
+                    <form action="#" th:action="@{/tasks}" th:object="${task}" method="post">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" th:field="*{name}" class="form-control" id="name"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea type="text" th:field="*{description}" class="form-control"
+                                      id="description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select th:field="*{status}" class="form-control" id="status">
+                                <option th:value="'TODO'" th:text="Todo" th:selected="(*{status} == 'TODO')"></option>
+                                <option th:value="'IN_PROGRESS'" th:text="In-progress"
+                                        th:selected="(*{status} == 'IN_PROGRESS')"></option>
+                                <option th:value="'REVIEWING'" th:text="Reviewing"
+                                        th:selected="(*{status} == 'REVIEWING')"></option>
+                                <option th:value="'COMPLETED'" th:text="Completed"
+                                        th:selected="(*{status} == 'COMPLETED')"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="assignedUser">Assigned user</label>
+                            <select type="text" th:field="*{assignedUser}" class="form-control" id="assignedUser">
+                                <option th:each="u : ${users}" th:value="${u.getId()}" th:text="${u.username}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="expectedEndTime">Expected end time</label>
+                            <input type="datetime-local" th:field="*{expectedEndTime}" class="form-control"
+                                   id="expectedEndTime"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a role="button" class="btn btn-secondary" th:href="@{/tasks/list}">Back</a>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

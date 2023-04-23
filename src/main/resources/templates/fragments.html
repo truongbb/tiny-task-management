@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:fragment="html_head(pageTitle)">
+    <meta charset="ISO-8859-1">
+    <title>[[${pageTitle}]]</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"
+          integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<th:block th:fragment="header">
+    <div class="container my-4">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="font-weight-bold text-dark">Kanban Board</h3>
+                <div class="small text-dark">Drag and drop between swim lanes</div>
+            </div>
+            <div sec:authorize="isAuthenticated()" class="col d-flex justify-content-end align-items-center">
+                <form th:action="@{/logout}" method="post">
+                    Welcome <b><span sec:authentication="name">Username</span></b>
+                    <!--                <img th:src="${#(User)authentication.getPrincipal()).getAvatarUrl()}"/>-->
+                    <input type="submit" class="btn btn-outline-secondary btn-sm ml-2" value="Logout"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>
